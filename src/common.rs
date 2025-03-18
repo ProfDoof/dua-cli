@@ -173,6 +173,11 @@ pub struct WalkOptions {
     pub ignore_dirs: BTreeSet<PathBuf>,
 }
 
+// To make this cachable, I need to create a Metadata wrapper, and a DirEntry wrapper. It's possible the best options
+// here are to use something like an enum that's backed by the data or potentially to just map all the data into the 
+// wrapped data. Not sure yet. Need to play with it.
+// I also need to make the wrappers serializable into a vector or something that can be saved on disk and pulled from
+// directly.
 type WalkDir = jwalk::WalkDirGeneric<((), Option<Result<std::fs::Metadata, jwalk::Error>>)>;
 
 impl WalkOptions {
